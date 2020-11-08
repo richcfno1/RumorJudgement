@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Judge "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    <label for="judgement">Judgement</label>
+    <input name="judgement" id="judgement" value="{{ request.form['judgement'] or post['judgement'] }}" required>
+    <label for="reply">Reply</label>
+    <textarea name="reply" id="reply">{{ request.form['reply'] or post['reply'] }}</textarea>
+    <input type="submit" value="Save">
+</form>
+<hr>
+<form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+</form>
+{% endblock %}

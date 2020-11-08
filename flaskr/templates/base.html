@@ -1,0 +1,48 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Rumors Judgement</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+    <h1><a href="{{ url_for('index') }}">Rumors Judgement (Demo)</a></h1>
+    <ul>
+        {% if g.user %}
+        <li><span>{{ g.user['username'] }}</span>
+        <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+            {% if g.user['class'] %}
+            <li><span>Class: {{ g.user['class'] }}</span>
+            {% endif %}
+        {% else %}
+        <li><a href="{{ url_for('auth.register') }}">Register</a>
+        <li><a href="{{ url_for('auth.login') }}">Log In</a>
+        {% endif %}
+    </ul>
+</nav>
+<section class="content">
+    <article class="post">
+        {% if g.user %}
+        <header>
+            <div>
+                <h1>Welcome</h1>
+            </div>
+        </header>
+        <p class="body">You can now post your new information to the public!</p>
+        {% else %}
+        <header>
+            <div>
+                <h1>Introduction to Rumors Judgement</h1>
+            </div>
+        </header>
+        <p class="body">This blog is built for people to communicate information about Covid-19
+            and to help users identify rumors and facts with our certified experts giving out judgement.
+        </p>
+        {% endif %}
+    </article>
+</section>
+<section class="content">
+    <header>
+    {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
