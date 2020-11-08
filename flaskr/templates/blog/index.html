@@ -31,8 +31,12 @@
         <a class="action" href="{{ url_for('blog.judge', id=post['id']) }}">Judge</a>
         {% endif %}
     </header>
-    <p class="body">{{ post['body'] }}</p>
-    <p class="body">{{ post['reply'] }}</p>
+    {% if post['body'] != "" %}
+    <p class="body">Content: <br/> {{ post['body'] }}</p>
+    {% endif %}
+    {% if post['reply'] != "" %}
+    <p class="body">Explain: <br/> {{ post['reply'] }}</p>
+    {% endif %}
 </article>
 {% if not loop.last %}
 <hr>
